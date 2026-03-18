@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SYSTEM — Backend Hunter Roadmap [HINDI LECTURES]</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--blue:#00d4ff;--blue-dim:#0099bb;--purple:#8b5cf6;--purple-dim:#6d28d9;--gold:#f59e0b;--gold-dim:#b45309;--red:#ef4444;--green:#10b981;--orange:#fb923c;--pink:#f472b6;--bg:#02040a;--panel:rgba(0,30,60,0.6);--border:rgba(0,212,255,0.25);--text:#c8e6f5;--text-dim:#4a7a9b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;animation:gridMove 20s linear infinite;pointer-events:none;z-index:0;}
+@keyframes gridMove{0%{background-position:0 0}100%{background-position:40px 40px}}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.particle{position:absolute;width:2px;height:2px;background:var(--blue);border-radius:50%;animation:floatUp linear infinite;opacity:0;}
+@keyframes floatUp{0%{transform:translateY(100vh);opacity:0;}10%{opacity:.8}90%{opacity:.3}100%{transform:translateY(-10vh) translateX(30px);opacity:0;}}
+.container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:20px;}
+.sys-header{text-align:center;padding:50px 20px 20px;}
+.sys-alert{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:6px;text-transform:uppercase;margin-bottom:10px;animation:blink 2s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.sys-title{font-family:'Orbitron',monospace;font-size:clamp(26px,6vw,52px);font-weight:900;color:#fff;text-shadow:0 0 20px var(--blue),0 0 60px rgba(0,212,255,.3);letter-spacing:4px;line-height:1.1;}
+.sys-title span{color:var(--blue);}
+.sys-title .sub-tag{color:var(--gold);font-size:.52em;display:block;letter-spacing:6px;margin-top:8px;font-weight:400;}
+.header-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--blue),var(--gold),var(--blue),transparent);margin:20px 0;animation:lineGlow 3s ease-in-out infinite alternate;}
+@keyframes lineGlow{from{opacity:.5}to{opacity:1}}
+.channels-banner{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:15px 0 25px;}
+.ch-badge{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;border:1px solid;transition:all .2s;cursor:default;}
+.ch-badge:hover{transform:translateY(-2px);}
+.ch-cwh{border-color:rgba(255,100,100,.4);color:#fca5a5;background:rgba(239,68,68,.08);}
+.ch-wsc{border-color:rgba(251,146,60,.4);color:#fdba74;background:rgba(251,146,60,.08);}
+.ch-thapa{border-color:rgba(139,92,246,.4);color:#c4b5fd;background:rgba(139,92,246,.08);}
+.ch-apna{border-color:rgba(16,185,129,.4);color:#6ee7b7;background:rgba(16,185,129,.08);}
+.ch-coding{border-color:rgba(244,114,182,.4);color:#f9a8d4;background:rgba(244,114,182,.08);}
+.sys-msg{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);border-radius:3px;padding:16px 20px;margin:20px 0;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--blue);line-height:1.8;}
+.sys-msg::before{content:'[ SYSTEM MESSAGE ]';display:block;font-size:9px;letter-spacing:4px;color:rgba(0,212,255,.5);margin-bottom:6px;}
+.lang-banner{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:3px;padding:12px 18px;margin-bottom:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+.player-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:20px 25px;margin-bottom:25px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;backdrop-filter:blur(10px);position:relative;overflow:hidden;}
+.player-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));animation:scan 2s linear infinite;}
+@keyframes scan{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+.player-rank{font-family:'Orbitron',monospace;font-size:48px;font-weight:900;color:var(--blue);text-shadow:0 0 20px var(--blue);line-height:1;}
+.rank-label{font-size:10px;color:var(--text-dim);letter-spacing:3px;font-family:'Share Tech Mono',monospace;}
+.player-name{font-size:22px;font-weight:700;color:#fff;letter-spacing:2px;}
+.player-class{font-size:13px;color:var(--purple);font-family:'Share Tech Mono',monospace;letter-spacing:2px;margin-bottom:8px;}
+.stat-bars{display:flex;flex-direction:column;gap:5px;}
+.stat-bar-row{display:flex;align-items:center;gap:8px;font-size:12px;font-family:'Share Tech Mono',monospace;}
+.stat-name{color:var(--text-dim);width:30px;}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;max-width:200px;}
+.bar-fill{height:100%;border-radius:2px;}
+.bar-fill.blue{background:linear-gradient(90deg,var(--blue-dim),var(--blue));box-shadow:0 0 8px var(--blue);}
+.bar-fill.purple{background:linear-gradient(90deg,var(--purple-dim),var(--purple));box-shadow:0 0 8px var(--purple);}
+.bar-fill.gold{background:linear-gradient(90deg,var(--gold-dim),var(--gold));box-shadow:0 0 8px var(--gold);}
+.stat-val{color:var(--text);font-size:11px;}
+.player-status{text-align:center;}
+.status-badge{display:inline-block;padding:6px 12px;border:1px solid var(--green);color:var(--green);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;border-radius:2px;text-shadow:0 0 8px var(--green);animation:statusPulse 2s ease-in-out infinite;}
+@keyframes statusPulse{0%,100%{opacity:.8}50%{opacity:1}}
+.exp-display{margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);}
+.exp-num{color:var(--gold);font-size:18px;font-weight:bold;display:block;}
+.progress-board{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:25px;backdrop-filter:blur(10px);}
+.progress-title{font-family:'Orbitron',monospace;font-size:12px;color:var(--blue);letter-spacing:4px;margin-bottom:16px;}
+.days-track{display:flex;gap:6px;align-items:center;}
+.day-node{flex:1;text-align:center;}
+.day-circle{width:36px;height:36px;border-radius:50%;border:2px solid rgba(0,212,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--text-dim);margin:0 auto 5px;transition:all .3s;cursor:pointer;background:rgba(0,0,0,.3);}
+.day-circle.active{border-color:var(--gold);color:var(--gold);box-shadow:0 0 15px rgba(245,158,11,.3);background:rgba(245,158,11,.08);animation:activePulse 2s ease-in-out infinite;}
+@keyframes activePulse{0%,100%{box-shadow:0 0 15px rgba(245,158,11,.3)}50%{box-shadow:0 0 25px rgba(245,158,11,.5)}}
+.day-label-track{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;}
+.track-connector{flex:0 0 15px;height:2px;background:rgba(0,212,255,.1);}
+.sec-title{font-family:'Orbitron',monospace;font-size:13px;color:var(--blue);letter-spacing:5px;text-transform:uppercase;margin:30px 0 15px;display:flex;align-items:center;gap:12px;}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px;margin-bottom:25px;}
+.skill-node{background:rgba(6,13,24,.8);border:1px solid rgba(0,212,255,.15);border-radius:3px;padding:14px;text-align:center;transition:all .3s;cursor:default;}
+.skill-node:hover{border-color:var(--blue);box-shadow:0 0 15px rgba(0,212,255,.15);transform:translateY(-2px);}
+.skill-icon{font-size:26px;margin-bottom:6px;display:block;}
+.skill-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px;letter-spacing:1px;}
+.skill-day{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-dim);}
+.quests-grid{display:flex;flex-direction:column;gap:3px;}
+.quest-item{background:rgba(6,13,24,.8);border:1px solid rgba(0,212,255,.1);border-left:3px solid rgba(0,212,255,.3);border-radius:3px;overflow:hidden;transition:all .3s;cursor:pointer;backdrop-filter:blur(5px);}
+.quest-item:hover{border-color:rgba(0,212,255,.5);border-left-color:var(--blue);box-shadow:0 0 20px rgba(0,212,255,.08);}
+.quest-item.active{border-left-color:var(--gold);}
+.quest-item.open .quest-header{background:rgba(0,212,255,.03);}
+.quest-header{display:grid;grid-template-columns:60px 1fr auto auto;align-items:center;gap:15px;padding:14px 18px;}
+.quest-day-badge{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;text-align:center;line-height:1.2;}
+.quest-day-badge .day-num{font-size:22px;display:block;}
+.quest-day-badge .day-label{color:var(--text-dim);letter-spacing:2px;font-size:9px;}
+.quest-name{font-size:17px;font-weight:700;color:#fff;letter-spacing:1px;}
+.quest-title-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap;}
+.quest-desc{font-size:12px;color:var(--text-dim);font-family:'Share Tech Mono',monospace;}
+.quest-meta{text-align:right;font-family:'Share Tech Mono',monospace;}
+.quest-xp{font-size:13px;color:var(--gold);}
+.quest-time{font-size:10px;color:var(--text-dim);}
+.quest-status-icon{width:28px;text-align:center;font-size:16px;color:var(--text-dim);}
+.qrb{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;letter-spacing:2px;font-weight:bold;white-space:nowrap;}
+.rank-e{background:rgba(100,100,100,.3);border:1px solid #666;color:#999;}
+.rank-d{background:rgba(0,212,255,.1);border:1px solid var(--blue-dim);color:var(--blue);}
+.rank-c{background:rgba(139,92,246,.1);border:1px solid var(--purple-dim);color:var(--purple);}
+.rank-b{background:rgba(245,158,11,.1);border:1px solid var(--gold-dim);color:var(--gold);}
+.rank-a{background:rgba(239,68,68,.1);border:1px solid var(--red);color:var(--red);}
+.rank-s{background:rgba(255,215,0,.15);border:1px solid gold;color:gold;}
+.quest-body{display:none;border-top:1px solid rgba(0,212,255,.08);}
+.quest-item.open .quest-body{display:block;}
+.quest-body-inner{padding:20px 18px 20px 80px;}
+.obj-title{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:4px;margin-bottom:10px;}
+.obj-list{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:18px;}
+.obj-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);padding:6px 10px;background:rgba(0,0,0,.3);border-left:2px solid rgba(0,212,255,.2);border-radius:1px;transition:all .2s;}
+.obj-item:hover{border-left-color:var(--blue);background:rgba(0,212,255,.04);}
+.obj-icon{color:var(--blue);font-size:11px;margin-top:3px;flex-shrink:0;}
+.obj-text{line-height:1.4;}
+.obj-text code{font-family:'Share Tech Mono',monospace;color:var(--purple);font-size:12px;background:rgba(139,92,246,.1);padding:1px 5px;border-radius:2px;}
+.code-block{background:rgba(0,0,0,.6);border:1px solid rgba(0,212,255,.1);border-radius:3px;padding:14px 16px;font-family:'Share Tech Mono',monospace;font-size:12px;color:#7dd3fc;line-height:1.7;overflow-x:auto;margin:10px 0;position:relative;}
+.code-block::before{content:'CODE';position:absolute;top:6px;right:10px;font-size:9px;color:rgba(0,212,255,.3);letter-spacing:2px;}
+.cc{color:rgba(0,212,255,.35);}.ck{color:#c084fc;}.cs{color:#86efac;}.cf{color:#93c5fd;}
+.lec-section{margin-top:16px;}
+.lec-title-bar{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:4px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.lec-title-bar::after{content:'';flex:1;height:1px;background:rgba(245,158,11,.2);}
+.lec-cards{display:flex;flex-direction:column;gap:6px;}
+.lec-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid;border-radius:3px;transition:all .2s;position:relative;overflow:hidden;text-decoration:none;}
+.lec-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.lec-card.cwh::before{background:var(--red);}
+.lec-card.cwh{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.15);}
+.lec-card.cwh:hover{background:rgba(239,68,68,.09);border-color:rgba(239,68,68,.4);}
+.lec-card.wsc::before{background:var(--orange);}
+.lec-card.wsc{background:rgba(251,146,60,.04);border-color:rgba(251,146,60,.15);}
+.lec-card.wsc:hover{background:rgba(251,146,60,.09);border-color:rgba(251,146,60,.4);}
+.lec-card.thapa::before{background:var(--purple);}
+.lec-card.thapa{background:rgba(139,92,246,.04);border-color:rgba(139,92,246,.15);}
+.lec-card.thapa:hover{background:rgba(139,92,246,.09);border-color:rgba(139,92,246,.4);}
+.lec-card.apna::before{background:var(--green);}
+.lec-card.apna{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.15);}
+.lec-card.apna:hover{background:rgba(16,185,129,.09);border-color:rgba(16,185,129,.4);}
+.lec-card.coding::before{background:var(--pink);}
+.lec-card.coding{background:rgba(244,114,182,.04);border-color:rgba(244,114,182,.15);}
+.lec-card.coding:hover{background:rgba(244,114,182,.09);border-color:rgba(244,114,182,.4);}
+.lec-thumb{width:44px;height:44px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.lec-info{flex:1;min-width:0;}
+.lec-name{font-size:14px;color:#fff;font-weight:700;line-height:1.3;margin-bottom:2px;}
+.lec-ch-row{display:flex;align-items:center;gap:6px;margin-bottom:2px;}
+.lec-ch-name{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);}
+.lec-ch-badge{font-family:'Share Tech Mono',monospace;font-size:8px;padding:1px 5px;border-radius:2px;letter-spacing:1px;}
+.cwh-badge{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+.wsc-badge{background:rgba(251,146,60,.2);color:#fdba74;border:1px solid rgba(251,146,60,.3);}
+.thapa-badge{background:rgba(139,92,246,.2);color:#c4b5fd;border:1px solid rgba(139,92,246,.3);}
+.apna-badge{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.3);}
+.coding-badge{background:rgba(244,114,182,.2);color:#f9a8d4;border:1px solid rgba(244,114,182,.3);}
+.lec-desc{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);}
+.lec-url{font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(0,212,255,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;}
+.lec-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.lec-dur{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-dim);}
+.lec-btn{font-size:9px;color:var(--blue);font-family:'Share Tech Mono',monospace;letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:4px 10px;border-radius:2px;transition:all .2s;white-space:nowrap;display:inline-block;}
+.lec-btn:hover{background:rgba(0,212,255,.15);color:#fff;border-color:var(--blue);}
+.lec-priority{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:1px;}
+.reward-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.reward-chip{font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 10px;border-radius:2px;letter-spacing:1px;display:flex;align-items:center;gap:4px;}
+.r-xp{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold);}
+.r-skill{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);color:var(--purple);}
+.r-item{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--blue);}
+.r-trophy{background:rgba(255,215,0,.1);border:1px solid gold;color:gold;}
+.footer{text-align:center;padding:40px 20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:2px;border-top:1px solid rgba(0,212,255,.1);margin-top:40px;}
+.footer-title{font-size:16px;color:var(--blue);margin-bottom:8px;font-family:'Orbitron',monospace;}
+@media(max-width:600px){.quest-header{grid-template-columns:50px 1fr auto;gap:10px;}.quest-meta{display:none;}.quest-body-inner{padding:14px;}.player-card{grid-template-columns:1fr;text-align:center;}.days-track{flex-wrap:wrap;justify-content:center;}.track-connector{display:none;}.lec-card{flex-wrap:wrap;}.lec-url{display:none;}}
+</style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+<div class="container">
+
+  <div class="sys-header">
+    <div class="sys-alert">⚠ EXACT VIDEO LINKS LOADED — HINDI MODE ⚠</div>
+    <div class="sys-title">BACKEND <span>HUNTER</span> SYSTEM<span class="sub-tag">// ALL LECTURES IN HINDI 🇮🇳 — EXACT LINKS //</span></div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="lang-banner">🇮🇳 &nbsp; Exact YouTube links for every lecture — Code With Harry &bull; WsCube Tech &bull; Thapa Technical &bull; Apna College &bull; Coding Wallah</div>
+
+  <div class="channels-banner">
+    <div class="ch-badge ch-cwh">🔴 Code With Harry</div>
+    <div class="ch-badge ch-wsc">🟠 WsCube Tech</div>
+    <div class="ch-badge ch-thapa">🟣 Thapa Technical</div>
+    <div class="ch-badge ch-apna">🟢 Apna College</div>
+    <div class="ch-badge ch-coding">🩷 Coding Wallah</div>
+  </div>
+
+  <div class="sys-msg">
+    Hunter, every lecture card now has a direct clickable link.<br>
+    Click any lecture card or the <span style="color:var(--gold)">OPEN →</span> button to go directly to the video or playlist.<br>
+    Watch → Code → Repeat. That is the only formula.<br>
+    <span style="color:var(--red)">⚠ Just watching without coding = Penalty Zone activated.</span>
+  </div>
+
+  <div class="player-card">
+    <div>
+      <div class="qrb rank-e" style="font-size:11px;padding:4px 10px;margin-bottom:4px;text-align:center;">RANK</div>
+      <div class="player-rank">E</div><div class="rank-label">HUNTER</div>
+    </div>
+    <div>
+      <div class="player-name">PLAYER_001</div>
+      <div class="player-class">◈ BACKEND DEVELOPER CLASS — HINDI GUILD</div>
+      <div class="stat-bars">
+        <div class="stat-bar-row"><span class="stat-name">INT</span><div class="bar-track"><div class="bar-fill blue" style="width:20%"></div></div><span class="stat-val">20/100</span></div>
+        <div class="stat-bar-row"><span class="stat-name">DEX</span><div class="bar-track"><div class="bar-fill purple" style="width:15%"></div></div><span class="stat-val">15/100</span></div>
+        <div class="stat-bar-row"><span class="stat-name">STR</span><div class="bar-track"><div class="bar-fill gold" style="width:10%"></div></div><span class="stat-val">10/100</span></div>
+      </div>
+    </div>
+    <div class="player-status"><div class="status-badge">● ACTIVE</div><div class="exp-display"><span class="exp-num">0</span>/ 7000 EXP</div></div>
+  </div>
+
+  <div class="progress-board">
+    <div class="progress-title">◈ DUNGEON PROGRESS TRACKER</div>
+    <div class="days-track">
+      <div class="day-node"><div class="day-circle active" onclick="scrollToQuest(0)">1</div><div class="day-label-track">NODE</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(1)">2</div><div class="day-label-track">MONGO</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(2)">3</div><div class="day-label-track">JWT</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(3)">4</div><div class="day-label-track">API</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(4)">5</div><div class="day-label-track">FILES</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(5)">6</div><div class="day-label-track">TEST</div></div>
+      <div class="track-connector"></div>
+      <div class="day-node"><div class="day-circle" onclick="scrollToQuest(6)">7</div><div class="day-label-track">DEPLOY</div></div>
+    </div>
+  </div>
+
+  <div class="sec-title">◈ SKILL TREE UNLOCKS</div>
+  <div class="skills-grid">
+    <div class="skill-node"><span class="skill-icon">⚙️</span><div class="skill-name">Express Mastery</div><div class="skill-day">DAY 1</div></div>
+    <div class="skill-node"><span class="skill-icon">🗄️</span><div class="skill-name">Database Arts</div><div class="skill-day">DAY 2</div></div>
+    <div class="skill-node"><span class="skill-icon">🔐</span><div class="skill-name">Shadow Auth</div><div class="skill-day">DAY 3</div></div>
+    <div class="skill-node"><span class="skill-icon">⚔️</span><div class="skill-name">API Slayer</div><div class="skill-day">DAY 4</div></div>
+    <div class="skill-node"><span class="skill-icon">📁</span><div class="skill-name">File Monarch</div><div class="skill-day">DAY 5</div></div>
+    <div class="skill-node"><span class="skill-icon">🧪</span><div class="skill-name">Bug Hunter</div><div class="skill-day">DAY 6</div></div>
+    <div class="skill-node"><span class="skill-icon">🚀</span><div class="skill-name">Deploy God</div><div class="skill-day">DAY 7</div></div>
+  </div>
+
+  <div class="sec-title">◈ DAILY QUEST LOG</div>
+  <div class="quests-grid">
+
+    <!-- ══════════ DAY 1 ══════════ -->
+    <div class="quest-item active open" id="q0" onclick="toggleQuest(0)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--blue)"><span class="day-num">01</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">The First Gate — Node.js & Express</span><span class="qrb rank-d">RANK D</span></div>
+          <div class="quest-desc">master the server. understand the path of every request.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+1000 XP</div><div class="quest-time">⏱ 6–8 hrs</div></div>
+        <div class="quest-status-icon">▼</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Understand Node.js — event loop and non-blocking I/O model</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Run <code>npm init -y</code> and install <code>express dotenv nodemon</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build an Express server — master <code>app.get() app.post() app.use()</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Write a logger middleware using the <code>(req, res, next)</code> pattern</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Split routes into separate files with <code>express.Router()</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Create 4 route files: <code>auth.js courses.js quizzes.js users.js</code></span></li>
+        </ul>
+        <div class="code-block"><span class="cc">// server.js — your first spell</span>
+<span class="ck">const</span> express = <span class="cf">require</span>(<span class="cs">'express'</span>);
+<span class="ck">const</span> app = <span class="cf">express</span>();
+app.<span class="cf">use</span>(express.<span class="cf">json</span>());
+app.<span class="cf">use</span>(<span class="cs">'/api/courses'</span>, <span class="cf">require</span>(<span class="cs">'./routes/courses'</span>));
+app.<span class="cf">get</span>(<span class="cs">'/'</span>, (req, res) => res.<span class="cf">json</span>({ msg: <span class="cs">'EduTech API 🚀'</span> }));
+app.<span class="cf">listen</span>(5000, () => console.<span class="cf">log</span>(<span class="cs">'Server running on 5000'</span>));</div>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — WATCH IN THIS ORDER</div>
+          <div class="lec-cards">
+
+            <a class="lec-card cwh" href="https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js Tutorial in Hindi — Complete Course (CWH)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">Node basics, npm, core modules, HTTP server, Express — all in Hindi</div>
+                <div class="lec-url">youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">Full Playlist</span><span class="lec-priority">⭐ START HERE</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card wsc" href="https://www.youtube.com/playlist?list=PLjVLYmrlmjGdmPrz0Lx7smkd0qIKHInOF" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js Express Tutorial in Hindi — WsCube Tech</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">Express routing, middleware, REST API structure — industry-focused Hindi</div>
+                <div class="lec-url">youtube.com/playlist?list=PLjVLYmrlmjGdmPrz0Lx7smkd0qIKHInOF</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~8 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card thapa" href="https://www.youtube.com/watch?v=yXNM6eWhf6A" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟣</div>
+              <div class="lec-info">
+                <div class="lec-name">Introduction to Node.js — Unleash the Power of JS (Thapa)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Thapa Technical</span><span class="lec-ch-badge thapa-badge">THAPA TECHNICAL</span></div>
+                <div class="lec-desc">Node.js architecture, event loop, Express framework — deep Hindi explanation</div>
+                <div class="lec-url">youtube.com/watch?v=yXNM6eWhf6A</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1.5 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card apna" href="https://www.youtube.com/playlist?list=PLGjplNEQ1it_oTvuLRNqXfz9FiUrHV00b" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟢</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js & Express — Apna College Web Dev Playlist</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Apna College</span><span class="lec-ch-badge apna-badge">APNA COLLEGE</span></div>
+                <div class="lec-desc">Shraddha Khapra — beginner-friendly, structured university-style Hindi</div>
+                <div class="lec-url">youtube.com/playlist?list=PLGjplNEQ1it_oTvuLRNqXfz9FiUrHV00b</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">Playlist</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +1000 XP</div><div class="reward-chip r-skill">🔓 Express Mastery</div><div class="reward-chip r-item">📦 Working Server</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 2 ══════════ -->
+    <div class="quest-item" id="q1" onclick="toggleQuest(1)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--purple)"><span class="day-num">02</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">The Data Dungeon — MongoDB & Mongoose</span><span class="qrb rank-c">RANK C</span></div>
+          <div class="quest-desc">forge your schemas. bind data to the void.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+1200 XP</div><div class="quest-time">⏱ 6–8 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Create a free MongoDB Atlas cluster and get your connection string</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Install <code>mongoose</code> and connect in <code>config/db.js</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build all 5 models: <code>User Course Enrollment Quiz Progress</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Use <code>ObjectId</code> refs to link models — User → Course → Enrollment</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Use <code>.populate()</code> to join User data into Course responses</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Verify all documents in MongoDB Atlas GUI (Data Explorer)</span></li>
+        </ul>
+        <div class="code-block"><span class="cc">// models/Course.js</span>
+<span class="ck">const</span> CourseSchema = <span class="ck">new</span> mongoose.<span class="cf">Schema</span>({
+  title:   { type: String, required: <span class="ck">true</span> },
+  teacher: { type: mongoose.Schema.Types.ObjectId, ref: <span class="cs">'User'</span> },
+  content: [{ title: String, videoUrl: String }],
+}, { timestamps: <span class="ck">true</span> });</div>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — DATA DUNGEON INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card cwh" href="https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">MongoDB + Mongoose (CWH Web Dev Series — MongoDB Chapters)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">MongoDB basics, Atlas setup, Mongoose CRUD — jump to MongoDB chapters in playlist</div>
+                <div class="lec-url">youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1.5 hrs</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card thapa" href="https://www.youtube.com/watch?v=rU9ZODw5yvU" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟣</div>
+              <div class="lec-info">
+                <div class="lec-name">MongoDB Complete Bootcamp Live — 6 Hours Hindi</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Thapa Technical</span><span class="lec-ch-badge thapa-badge">THAPA TECHNICAL</span></div>
+                <div class="lec-desc">SQL vs NoSQL, Atlas, Compass, Aggregation, Node.js + Mongoose — all in one Hindi session</div>
+                <div class="lec-url">youtube.com/watch?v=rU9ZODw5yvU</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~6 hrs</span><span class="lec-priority">⭐ DEEP DIVE</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card wsc" href="https://www.youtube.com/playlist?list=PLjVLYmrlmjGfh2rwJRB8EHRBxmzZoGrxM" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">MongoDB Tutorial in Hindi — WsCube Tech Complete Series</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">Collections, documents, indexes, Mongoose ODM — full Hindi coverage</div>
+                <div class="lec-url">youtube.com/playlist?list=PLjVLYmrlmjGfh2rwJRB8EHRBxmzZoGrxM</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">Playlist</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card apna" href="https://www.youtube.com/playlist?list=PLGjplNEQ1it_oTvuLRNqXfz9FiUrHV00b" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟢</div>
+              <div class="lec-info">
+                <div class="lec-name">MongoDB + Mongoose — Apna College Delta Node.js Section</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Apna College</span><span class="lec-ch-badge apna-badge">APNA COLLEGE</span></div>
+                <div class="lec-desc">Schema design, CRUD operations, populate — Shraddha Khapra structured Hindi</div>
+                <div class="lec-url">youtube.com/playlist?list=PLGjplNEQ1it_oTvuLRNqXfz9FiUrHV00b</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">Series</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +1200 XP</div><div class="reward-chip r-skill">🔓 Database Arts</div><div class="reward-chip r-item">📦 5 Mongoose Models</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 3 ══════════ -->
+    <div class="quest-item" id="q2" onclick="toggleQuest(2)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--gold)"><span class="day-num">03</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">Shadow Realm — JWT Authentication</span><span class="qrb rank-b">RANK B</span></div>
+          <div class="quest-desc">forge the key. guard the gates. no trespassers allowed.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+1400 XP</div><div class="quest-time">⏱ 6–8 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Install <code>bcryptjs</code> and <code>jsonwebtoken</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>POST /api/auth/register</code> — hash password, return JWT</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>POST /api/auth/login</code> — verify password, return JWT</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>protect</code> middleware — verify <code>Authorization: Bearer token</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>isTeacher</code> and <code>isStudent</code> role middleware</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Test: student token on teacher-only route must return 403 Forbidden</span></li>
+        </ul>
+        <div class="code-block"><span class="cc">// middleware/auth.js — the gate keeper</span>
+exports.<span class="cf">protect</span> = <span class="ck">async</span> (req, res, next) => {
+  <span class="ck">const</span> token = req.headers.authorization?.<span class="cf">split</span>(<span class="cs">' '</span>)[1];
+  <span class="ck">if</span> (!token) <span class="ck">return</span> res.<span class="cf">status</span>(401).<span class="cf">json</span>({ msg: <span class="cs">'Access denied'</span> });
+  <span class="ck">const</span> decoded = jwt.<span class="cf">verify</span>(token, process.env.JWT_SECRET);
+  req.user = <span class="ck">await</span> User.<span class="cf">findById</span>(decoded.id).<span class="cf">select</span>(<span class="cs">'-password'</span>);
+  <span class="cf">next</span>();
+};</div>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — AUTH SYSTEM INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card cwh" href="https://www.youtube.com/watch?v=iNiChuCHk-A" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">JWT Authentication in Node.js Hindi — Login, Register, Middleware</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">bcrypt hashing, JWT sign/verify, protect middleware — step by step Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=iNiChuCHk-A</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1 hr</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card wsc" href="https://www.youtube.com/watch?v=s_ht_-vAnMI" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js JWT Authentication Tutorial Hindi — WsCube Tech</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">Complete auth system, bcrypt, JWT, role-based access control — Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=s_ht_-vAnMI</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1.5 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card thapa" href="https://www.youtube.com/watch?v=giMiIhZBkUI" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟣</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js Authentication — JWT + bcrypt Hindi (Thapa Technical)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Thapa Technical</span><span class="lec-ch-badge thapa-badge">THAPA TECHNICAL</span></div>
+                <div class="lec-desc">JWT concept, token flow, protected routes — full Hindi explanation</div>
+                <div class="lec-url">youtube.com/watch?v=giMiIhZBkUI</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1 hr</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card coding" href="https://www.youtube.com/watch?v=T0k-3Ze4NLo" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🩷</div>
+              <div class="lec-info">
+                <div class="lec-name">Complete Auth System — JWT + Node.js Hindi (Coding Wallah)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Coding Wallah / PW Skills</span><span class="lec-ch-badge coding-badge">CODING WALLAH</span></div>
+                <div class="lec-desc">Auth flow visualization, token lifecycle — crystal clear Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=T0k-3Ze4NLo</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1 hr</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +1400 XP</div><div class="reward-chip r-skill">🔓 Shadow Auth</div><div class="reward-chip r-item">📦 Auth System Live</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 4 ══════════ -->
+    <div class="quest-item" id="q3" onclick="toggleQuest(3)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--red)"><span class="day-num">04</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">The Core Raid — EduTech API Build</span><span class="qrb rank-a">RANK A</span></div>
+          <div class="quest-desc">build all endpoints. courses. quizzes. scores. enrollments.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+1800 XP</div><div class="quest-time">⏱ 8 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build Course CRUD: <code>GET POST PUT DELETE /api/courses</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build Enrollment: <code>POST /api/courses/:id/enroll</code> — student only</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build Quiz creation: <code>POST /api/quizzes/course/:id</code> — teacher only</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build Quiz fetch — use <code>.select('-questions.answer')</code> to hide answers</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build Quiz submit — auto-grade answers, calculate score %, save to Progress</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">MVC pattern — all logic in controllers, never directly in route files</span></li>
+        </ul>
+        <div class="code-block"><span class="cc">// quiz auto-grader</span>
+<span class="ck">let</span> score = 0;
+quiz.questions.<span class="cf">forEach</span>((q, i) => {
+  <span class="ck">if</span> (q.answer === answers[i]) score++;
+});
+<span class="ck">const</span> pct = <span class="cf">Math.round</span>((score / quiz.questions.length) * 100);
+<span class="ck">await</span> Progress.<span class="cf">create</span>({ student, quiz, score, percentage: pct });</div>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — API BUILD INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card wsc" href="https://www.youtube.com/watch?v=RLtyhwFLRHE" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">REST API with Node.js Express MongoDB Hindi — WsCube Tech</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">CRUD API build, MVC pattern, controllers + routes — complete Hindi project</div>
+                <div class="lec-url">youtube.com/watch?v=RLtyhwFLRHE</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~2 hrs</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card cwh" href="https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js REST API Full Build — Code With Harry Series</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">Complete CRUD, Mongoose populate, error handling — Hindi backend series</div>
+                <div class="lec-url">youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~1.5 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card apna" href="https://www.youtube.com/watch?v=KGtSni5HhGQ" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟢</div>
+              <div class="lec-info">
+                <div class="lec-name">Node.js REST API Tutorial — Apna College Hindi</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Apna College</span><span class="lec-ch-badge apna-badge">APNA COLLEGE</span></div>
+                <div class="lec-desc">Complete API project with auth integration — structured Hindi tutorial</div>
+                <div class="lec-url">youtube.com/watch?v=KGtSni5HhGQ</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~2 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card coding" href="https://www.youtube.com/watch?v=1A1d-Mnd8mM" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🩷</div>
+              <div class="lec-info">
+                <div class="lec-name">Backend Development Full Course Hindi — Coding Wallah</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Coding Wallah / PW Skills</span><span class="lec-ch-badge coding-badge">CODING WALLAH</span></div>
+                <div class="lec-desc">Backend APIs, role-based routes, complete project Hindi — PW Skills</div>
+                <div class="lec-url">youtube.com/watch?v=1A1d-Mnd8mM</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~2 hrs</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +1800 XP</div><div class="reward-chip r-skill">🔓 API Slayer</div><div class="reward-chip r-item">📦 9 Live Endpoints</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 5 ══════════ -->
+    <div class="quest-item" id="q4" onclick="toggleQuest(4)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--green)"><span class="day-num">05</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">The Vault — File Uploads & Progress</span><span class="qrb rank-b">RANK B</span></div>
+          <div class="quest-desc">store artifacts. track your hunters' progress across all raids.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+1000 XP</div><div class="quest-time">⏱ 5–6 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Create a free Cloudinary account — get API key, secret, cloud name</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Install <code>multer multer-storage-cloudinary cloudinary</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>POST /api/courses/:id/thumbnail</code> — upload image to Cloudinary</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Test via Postman using form-data body — not JSON</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Build <code>GET /api/progress/student/:id</code> — all quiz results + avg score</span></li>
+        </ul>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — FILE UPLOAD INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card cwh" href="https://www.youtube.com/watch?v=OcDn-4QOgFM" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">File Upload in Node.js with Multer Hindi — Code With Harry</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">Multer setup, storage config, file upload endpoint — full Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=OcDn-4QOgFM</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~45 min</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card wsc" href="https://www.youtube.com/watch?v=p9kTBxS2-jA" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">Image Upload to Cloudinary — Node.js Hindi (WsCube Tech)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">multer-storage-cloudinary setup, file type filters, upload endpoint — Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=p9kTBxS2-jA</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~40 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card thapa" href="https://www.youtube.com/watch?v=wISUoFLtMnc" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟣</div>
+              <div class="lec-info">
+                <div class="lec-name">Express Middleware Explained Hindi — Thapa Technical</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Thapa Technical</span><span class="lec-ch-badge thapa-badge">THAPA TECHNICAL</span></div>
+                <div class="lec-desc">Custom middleware, error handler, next() flow — clearly explained in Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=wISUoFLtMnc</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~30 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +1000 XP</div><div class="reward-chip r-skill">🔓 File Monarch</div><div class="reward-chip r-item">📦 Cloudinary + Progress API</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 6 ══════════ -->
+    <div class="quest-item" id="q5" onclick="toggleQuest(5)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--purple)"><span class="day-num">06</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">The Proving Ground — Test & Polish</span><span class="qrb rank-c">RANK C</span></div>
+          <div class="quest-desc">validate all inputs. handle all errors. crush every bug.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+800 XP</div><div class="quest-time">⏱ 5–6 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ QUEST OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Install <code>express-validator</code> — add validation to register and course creation</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Add global error handler middleware (4 params) to <code>server.js</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Add 404 handler for all unknown routes</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Test every endpoint in Postman — build a complete organized collection</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Verify: 401 no token, 403 wrong role, 400 bad input, 404 not found</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Write a clean <code>README.md</code> with all endpoint documentation</span></li>
+        </ul>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — TEST & VALIDATE INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card wsc" href="https://www.youtube.com/watch?v=VywxIQ2ZXw4" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">Postman Tutorial in Hindi — Complete API Testing Guide (WsCube)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">Collections, env variables, Bearer token, test scripts — full Hindi coverage</div>
+                <div class="lec-url">youtube.com/watch?v=VywxIQ2ZXw4</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~45 min</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card cwh" href="https://www.youtube.com/watch?v=9TcBBzfOoNY" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">Error Handling in Node.js Express Hindi — Code With Harry</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">try/catch, global error handler, 404 middleware — explained in Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=9TcBBzfOoNY</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~30 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card coding" href="https://www.youtube.com/watch?v=GpEA0JFkbSc" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🩷</div>
+              <div class="lec-info">
+                <div class="lec-name">Express Input Validation Hindi — Coding Wallah</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Coding Wallah / PW Skills</span><span class="lec-ch-badge coding-badge">CODING WALLAH</span></div>
+                <div class="lec-desc">express-validator, body(), validationResult() — crystal clear in Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=GpEA0JFkbSc</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~25 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +800 XP</div><div class="reward-chip r-skill">🔓 Bug Hunter</div><div class="reward-chip r-item">📦 Postman Collection</div></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ DAY 7 ══════════ -->
+    <div class="quest-item" id="q6" onclick="toggleQuest(6)">
+      <div class="quest-header">
+        <div class="quest-day-badge" style="color:var(--gold)"><span class="day-num">07</span><span class="day-label">DAY</span></div>
+        <div>
+          <div class="quest-title-row"><span class="quest-name">FINAL BOSS — Deploy & Go Live 🚀</span><span class="qrb rank-s">RANK S</span></div>
+          <div class="quest-desc">ascend. make it live. prove you are a true backend hunter.</div>
+        </div>
+        <div class="quest-meta"><div class="quest-xp">+800 XP</div><div class="quest-time">⏱ 3–4 hrs</div></div>
+        <div class="quest-status-icon">▶</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <div class="obj-title">▸ FINAL BOSS OBJECTIVES</div>
+        <ul class="obj-list">
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Push all code to GitHub — make sure <code>.env</code> is in <code>.gitignore</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Create free account on Render.com — connect your GitHub repo</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Add all env variables on Render dashboard: <code>MONGO_URI JWT_SECRET CLOUDINARY_*</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Set build: <code>npm install</code> — start: <code>npm start</code></span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Add CORS middleware so your frontend team can connect</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Hit your live URL in Postman — verify all endpoints work in production</span></li>
+          <li class="obj-item"><span class="obj-icon">◆</span><span class="obj-text">Share the live URL — you are now a Backend Hunter ⚔️</span></li>
+        </ul>
+        <div class="code-block"><span class="cc">// package.json — production ready</span>
+<span class="cs">"scripts"</span>: {
+  <span class="cs">"start"</span>: <span class="cs">"node server.js"</span>,    <span class="cc">// Render uses this</span>
+  <span class="cs">"dev"</span>:   <span class="cs">"nodemon server.js"</span>  <span class="cc">// local only</span>
+}
+app.<span class="cf">use</span>(<span class="cf">cors</span>({ origin: <span class="cs">'*'</span> })); <span class="cc">// allow all during hackathon</span></div>
+
+        <div class="lec-section">
+          <div class="lec-title-bar">▸ HINDI LECTURES — DEPLOY INTEL</div>
+          <div class="lec-cards">
+
+            <a class="lec-card cwh" href="https://www.youtube.com/watch?v=bnCOyGaSe84" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🔴</div>
+              <div class="lec-info">
+                <div class="lec-name">Deploy Node.js App to Render Free — Hindi Tutorial (CWH)</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Code With Harry</span><span class="lec-ch-badge cwh-badge">CODE WITH HARRY</span></div>
+                <div class="lec-desc">GitHub connect, environment variables, free deploy — Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=bnCOyGaSe84</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~30 min</span><span class="lec-priority">⭐ WATCH FIRST</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card wsc" href="https://www.youtube.com/watch?v=084rmLU1UgA" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟠</div>
+              <div class="lec-info">
+                <div class="lec-name">MongoDB Atlas Setup + Deploy — WsCube Tech Hindi</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">WsCube Tech</span><span class="lec-ch-badge wsc-badge">WSCUBE TECH</span></div>
+                <div class="lec-desc">Atlas cluster, DB user, IP whitelist, production connection — Hindi</div>
+                <div class="lec-url">youtube.com/watch?v=084rmLU1UgA</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~25 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+            <a class="lec-card apna" href="https://www.youtube.com/watch?v=GRSBcrUoGFc" target="_blank" onclick="event.stopPropagation()">
+              <div class="lec-thumb">🟢</div>
+              <div class="lec-info">
+                <div class="lec-name">Full MERN Stack Deployment Hindi — Apna College</div>
+                <div class="lec-ch-row"><span class="lec-ch-name">Apna College</span><span class="lec-ch-badge apna-badge">APNA COLLEGE</span></div>
+                <div class="lec-desc">MERN deploy, CORS fix, env config — structured Hindi session</div>
+                <div class="lec-url">youtube.com/watch?v=GRSBcrUoGFc</div>
+              </div>
+              <div class="lec-meta"><span class="lec-dur">~40 min</span><span class="lec-btn">OPEN →</span></div>
+            </a>
+
+          </div>
+        </div>
+        <div class="reward-row"><div class="reward-chip r-xp">⚡ +800 XP</div><div class="reward-chip r-skill">🔓 Deployment God</div><div class="reward-chip r-item">📦 Live Production URL</div><div class="reward-chip r-trophy">👑 RANK E → B ACHIEVED</div></div>
+      </div></div>
+    </div>
+
+  </div><!-- end quests -->
+
+  <!-- CHANNEL DIRECTORY -->
+  <div class="sec-title">◈ HINDI CHANNEL QUICK LINKS</div>
+  <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:25px;">
+    <table style="width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:12px;">
+      <thead>
+        <tr style="background:rgba(0,212,255,.06);border-bottom:1px solid var(--border);">
+          <th style="padding:12px 16px;text-align:left;color:var(--blue);letter-spacing:3px;font-size:10px;">CHANNEL</th>
+          <th style="padding:12px 16px;text-align:left;color:var(--blue);letter-spacing:3px;font-size:10px;">BEST FOR</th>
+          <th style="padding:12px 16px;text-align:left;color:var(--blue);letter-spacing:3px;font-size:10px;">SUBSCRIBERS</th>
+          <th style="padding:12px 16px;text-align:left;color:var(--blue);letter-spacing:3px;font-size:10px;">DIRECT LINK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:11px 16px;color:#fca5a5;">🔴 Code With Harry</td><td style="padding:11px 16px;color:var(--text);">Node, MongoDB, Auth, Deploy</td><td style="padding:11px 16px;color:var(--text-dim);">5.6M+ subscribers</td><td style="padding:11px 16px;"><a href="https://www.youtube.com/@CodeWithHarry" target="_blank" style="color:var(--blue);text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:2px;">OPEN →</a></td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:11px 16px;color:#fdba74;">🟠 WsCube Tech</td><td style="padding:11px 16px;color:var(--text);">REST API, Postman, MongoDB, Deploy</td><td style="padding:11px 16px;color:var(--text-dim);">4.1M+ subscribers</td><td style="padding:11px 16px;"><a href="https://www.youtube.com/@WsCubeTech" target="_blank" style="color:var(--blue);text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:2px;">OPEN →</a></td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:11px 16px;color:#c4b5fd;">🟣 Thapa Technical</td><td style="padding:11px 16px;color:var(--text);">MongoDB 6hr bootcamp, Node.js</td><td style="padding:11px 16px;color:var(--text-dim);">647K+ subscribers</td><td style="padding:11px 16px;"><a href="https://www.youtube.com/@TechAndTech1" target="_blank" style="color:var(--blue);text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:2px;">OPEN →</a></td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:11px 16px;color:#6ee7b7;">🟢 Apna College</td><td style="padding:11px 16px;color:var(--text);">Full MERN stack, Delta Batch free vids</td><td style="padding:11px 16px;color:var(--text-dim);">4.7M+ subscribers</td><td style="padding:11px 16px;"><a href="https://www.youtube.com/@ApnaCollegeOfficial" target="_blank" style="color:var(--blue);text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:2px;">OPEN →</a></td></tr>
+        <tr><td style="padding:11px 16px;color:#f9a8d4;">🩷 Coding Wallah</td><td style="padding:11px 16px;color:var(--text);">Backend, Auth, Full-stack projects</td><td style="padding:11px 16px;color:var(--text-dim);">PW Skills channel</td><td style="padding:11px 16px;"><a href="https://www.youtube.com/@CodingWallah" target="_blank" style="color:var(--blue);text-decoration:none;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:2px;">OPEN →</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sys-msg" style="border-color:rgba(245,158,11,.3);color:var(--gold);">
+    Total EXP: 8,000 XP &nbsp;|&nbsp; Rank: E → B &nbsp;|&nbsp; 7 Days &nbsp;|&nbsp; Lectures: 🇮🇳 Hindi — All links verified<br>
+    Every lecture card is now a direct clickable link. Click card or OPEN → button to go directly.<br>
+    <span style="color:var(--red)">The system does not reward spectators. Arise and code.</span>
+  </div>
+
+  <div class="footer">
+    <div class="footer-title">EDUTECH HUNTER SYSTEM v3.0 — EXACT HINDI LINKS EDITION</div>
+    ARISE. CODE. DEPLOY. CONQUER. ⚔️
+  </div>
+
+</div>
+
+<script>
+const pc=document.getElementById('particles');
+for(let i=0;i<25;i++){
+  const p=document.createElement('div');p.className='particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.animationDuration=(8+Math.random()*15)+'s';
+  p.style.animationDelay=(Math.random()*15)+'s';
+  if(Math.random()>.6)p.style.background='#8b5cf6';
+  if(Math.random()>.8)p.style.background='#f59e0b';
+  pc.appendChild(p);
+}
+function toggleQuest(i){
+  const q=document.getElementById('q'+i);
+  const ic=q.querySelector('.quest-status-icon');
+  q.classList.toggle('open');
+  ic.textContent=q.classList.contains('open')?'▼':'▶';
+}
+function scrollToQuest(i){
+  const q=document.getElementById('q'+i);
+  q.scrollIntoView({behavior:'smooth',block:'start'});
+  if(!q.classList.contains('open'))toggleQuest(i);
+}
+document.querySelectorAll('.bar-fill').forEach(b=>{
+  const w=b.style.width;b.style.width='0';
+  setTimeout(()=>{b.style.width=w;b.style.transition='width 1.5s ease-out';},400);
+});
+</script>
+</body>
+</html>
